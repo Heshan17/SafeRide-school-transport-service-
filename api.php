@@ -90,10 +90,12 @@ case 'addDriver':
   q('INSERT INTO drivers(name,phone,license) VALUES(?,?,?)',[str('name'),$ph,$l]); out(['ok'=>'Driver added']);
 case 'addRoute':
   need('admin'); $t=str('time',5); if(!preg_match('/^\d{2}:\d{2}$/',$t)) out(['error'=>'Check the time field.'],422);
+  $rName = str('name', 60);
+  if(q('SELECT 1 FROM routes WHERE LOWER(name) = LOWER(?)', [$rName])->fetch()) out(['error'=>'A route with the name "' . htmlspecialchars($rName) . '" already exists. Please choose a different name.'], 409);
   $st=array_values(array_filter(array_map('trim',explode(',',str('stops',500))),fn($x)=>$x!==''&&mb_strlen($x)<=60));
   if(!in_array('School',$st,true)) $st[]='School'; if(count($st)<3) out(['error'=>'Add at least two stops before the school.'],422);
   $pdo->beginTransaction();
-  q('INSERT INTO routes(name,depart_time,vehicle_id,driver_id) VALUES(?,?,?,?)',[str('name'),$t,num('vehicleId',1,PHP_INT_MAX),num('driverId',1,PHP_INT_MAX)]);
+  q('INSERT INTO routes(name,depart_time,vehicle_id,driver_id) VALUES(?,?,?,?)',[$rName,$t,num('vehicleId',1,PHP_INT_MAX),num('driverId',1,PHP_INT_MAX)]);
   $rid=(int)$pdo->lastInsertId(); foreach($st as $i=>$n) q('INSERT INTO stops(route_id,name,seq) VALUES(?,?,?)',[$rid,$n,$i+1]);
   $pdo->commit(); out(['ok'=>'Route added']);
 case 'addStudent':

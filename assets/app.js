@@ -90,11 +90,11 @@ const PREVIEW_ROUTES = {
         coordinates: '7.1325° N, 79.8712° E'
       },
       {
-        name: 'School Campus Arrival Gate',
-        landmark: 'Main Campus North Gate & Safe Reception',
+        name: 'School',
+        landmark: 'Main School North Gate & Safe Reception',
         suburb: 'School Grounds',
         icon: '🏫',
-        timeMorning: '07:35 AM',
+        timeMorning: '07:25 AM',
         timeAfternoon: '01:45 PM',
         desc: 'Final arrival gate. Safe perimeter barrier, teacher supervision, driver student headcount reconciliation, and electronic attendance sign-off.',
         students: ['All 30 Seats Cleared', '100% Manifest Reconciled'],
@@ -153,11 +153,11 @@ const PREVIEW_ROUTES = {
         coordinates: '7.0514° N, 79.8985° E'
       },
       {
-        name: 'School Campus South Gate',
+        name: 'School',
         landmark: 'Junior School South Gate & Security Barrier',
         suburb: 'School Grounds',
         icon: '🏫',
-        timeMorning: '07:35 AM',
+        timeMorning: '07:25 AM',
         timeAfternoon: '01:45 PM',
         desc: 'Dedicated arrival terminal. Pupil handover to junior school staff and van safety checklist sign-off.',
         students: ['Van Passengers Handed Over'],
@@ -803,11 +803,13 @@ const V_ = {
                 Speed Limit: 40 km/h Zone
               </span>
             </div>
-            <h2 style="color:#fff;margin:0 0 0.4rem;font-size:1.85rem;">
-              ${esc(r.name)} · <span style="color:var(--primary-orange);">${esc(V(r.vehicleId).plate || 'NB-4821')}</span>
+            <h2 style="color:#ffffff;margin:0 0 0.5rem;font-size:2.1rem;font-weight:800;letter-spacing:-0.02em;text-shadow:0 2px 10px rgba(0,0,0,0.5);">
+              ${esc(r.name)} · <span class="bus-plate-badge">${esc(V(r.vehicleId).plate || 'NB-4821')}</span>
             </h2>
-            <div style="font-size:0.9rem;color:var(--text-light-muted);">
-              Driver: <b>${esc(me.name)}</b> · Scheduled Departure: <b>${esc(r.time)}</b> · Next: <b>${esc(activeStopName)}</b>
+            <div style="font-size:0.95rem;color:#cbd5e1;line-height:1.6;">
+              <span style="color:#94a3b8;">Driver:</span> <strong style="color:#ffffff;">${esc(me.name)}</strong> · 
+              <span style="color:#94a3b8;">Scheduled Departure:</span> <strong style="color:#38bdf8;">${esc(r.time)}</strong> · 
+              <span style="color:#94a3b8;">Next Stop:</span> <strong style="color:#fbbf24;background:rgba(245,158,11,0.2);padding:0.15rem 0.5rem;border-radius:4px;border:1px solid rgba(245,158,11,0.4);">${esc(activeStopName)}</strong>
             </div>
           </div>
 
@@ -832,19 +834,19 @@ const V_ = {
         ` : ''}
 
         <!-- Live Seat Meter & Occupancy Stats Inside Mission Card -->
-        <div style="background:rgba(15,23,42,0.6);padding:1rem 1.2rem;border-radius:var(--radius-md);margin-top:1.2rem;border:1px solid rgba(255,255,255,0.08);">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;font-size:0.88rem;">
-            <span><b>Bus Passenger Occupancy:</b> ${boardedCount} / ${cap} seats</span>
-            <span style="color:var(--primary-orange);font-weight:700;">${occPct}% Capacity</span>
+        <div style="background:rgba(15,23,42,0.85);padding:1.1rem 1.3rem;border-radius:var(--radius-md);margin-top:1.2rem;border:1px solid rgba(255,255,255,0.15);box-shadow:inset 0 2px 4px rgba(0,0,0,0.3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;font-size:0.92rem;">
+            <span style="color:#ffffff;font-weight:600;"><strong style="color:#ffffff;">Bus Passenger Occupancy:</strong> <span style="color:#38bdf8;font-weight:800;font-size:1.05rem;">${boardedCount}</span> / <span style="color:#e2e8f0;">${cap} seats</span></span>
+            <span style="color:#fb923c;font-weight:800;background:rgba(249,115,22,0.25);padding:0.2rem 0.6rem;border-radius:4px;border:1px solid rgba(249,115,22,0.4);">${occPct}% Capacity</span>
           </div>
-          <div class="bar" style="height:10px;background:rgba(255,255,255,0.1);margin-bottom:0.8rem;">
-            <span style="width:${occPct}%;background:var(--orange-gradient);"></span>
+          <div class="bar" style="height:10px;background:rgba(255,255,255,0.15);margin-bottom:0.9rem;border-radius:999px;overflow:hidden;">
+            <span style="width:${occPct}%;background:var(--orange-gradient);display:block;height:100%;border-radius:999px;"></span>
           </div>
-          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.84rem;color:var(--text-light-muted);">
-            <span>✓ Boarded: <b style="color:var(--ok);">${boardedCount}</b></span>
-            <span>✕ Absent: <b style="color:var(--bad);">${absentCount}</b></span>
-            <span>⏳ Pending Pickup: <b style="color:#fdba74;">${pendingCount}</b></span>
-            <span>Total Manifest: <b>${routeStudents.length} Students</b></span>
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.88rem;">
+            <span style="color:#e2e8f0;">✓ Boarded: <b style="color:#34d399;font-weight:800;font-size:0.95rem;">${boardedCount}</b></span>
+            <span style="color:#e2e8f0;">✕ Absent: <b style="color:#f87171;font-weight:800;font-size:0.95rem;">${absentCount}</b></span>
+            <span style="color:#e2e8f0;">⏳ Pending Pickup: <b style="color:#fbbf24;font-weight:800;font-size:0.95rem;">${pendingCount}</b></span>
+            <span style="color:#e2e8f0;">Total Manifest: <b style="color:#ffffff;font-weight:800;">${routeStudents.length} Students</b></span>
           </div>
         </div>
       </div>
@@ -1143,17 +1145,19 @@ const V_ = {
       <!-- High Priority SOS Card -->
       <div class="sos-trigger-card">
         <div>
-          <div style="font-size:0.82rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#fca5a5;margin-bottom:0.3rem;">
+          <div style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.82rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#fecaca;background:rgba(255,255,255,0.12);padding:0.25rem 0.65rem;border-radius:4px;margin-bottom:0.6rem;border:1px solid rgba(255,255,255,0.2);">
+            <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block;box-shadow:0 0 8px #ef4444;"></span>
             Emergency Beacon Trigger
           </div>
-          <h2 style="color:#fff;margin:0 0 0.4rem;font-size:1.8rem;">🚨 Instant Emergency SOS</h2>
-          <p style="margin:0;color:#fecaca;font-size:0.92rem;max-width:600px;">
+          <h2 style="color:#ffffff;margin:0 0 0.5rem;font-size:1.95rem;font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,0.4);">🚨 Instant Emergency SOS</h2>
+          <p style="margin:0;color:#fee2e2;font-size:0.95rem;line-height:1.55;max-width:620px;">
             In case of accident, medical emergency, or severe vehicle breakdown, tap the SOS button to transmit GPS telemetry and notify the Central Transport Office immediately.
           </p>
         </div>
         <div>
           <button type="button" class="sos-big-btn" data-a="driver-sos">
-            DISPATCH SOS ALERT
+            <span style="font-size:1.35rem;">🚨</span>
+            <span>DISPATCH SOS ALERT</span>
           </button>
         </div>
       </div>
@@ -1165,13 +1169,13 @@ const V_ = {
           Encountering unexpected delays? Tap a duration below to notify school authorities and guardians.
         </p>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-          <button type="button" class="pill-btn-dark" data-a="driver-broadcast-delay" data-delay="+5 min traffic delay">
+          <button type="button" class="pill-delay-btn traffic" data-a="driver-broadcast-delay" data-delay="+5 min traffic delay">
             ⏱️ +5 min Delay (Traffic)
           </button>
-          <button type="button" class="pill-btn-dark" data-a="driver-broadcast-delay" data-delay="+10 min road construction">
+          <button type="button" class="pill-delay-btn roadwork" data-a="driver-broadcast-delay" data-delay="+10 min road construction">
             🚧 +10 min Delay (Roadwork)
           </button>
-          <button type="button" class="pill-btn-dark" data-a="driver-broadcast-delay" data-delay="+15 min inclement weather">
+          <button type="button" class="pill-delay-btn weather" data-a="driver-broadcast-delay" data-delay="+15 min inclement weather">
             🌧️ +15 min Delay (Weather)
           </button>
         </div>
@@ -1194,7 +1198,7 @@ const V_ = {
         <div class="hotline-card">
           <div>
             <div style="font-size:1.8rem;margin-bottom:0.4rem;">🏫</div>
-            <h4 style="margin:0 0 0.3rem;color:var(--deep-navy);">Campus Main Security</h4>
+            <h4 style="margin:0 0 0.3rem;color:var(--deep-navy);">School Main Security</h4>
             <p style="font-size:0.85rem;color:var(--text-muted);margin:0;">School Gate Security Office</p>
           </div>
           <a href="tel:0112345678" class="pill-btn-dark" style="text-align:center;text-decoration:none;display:block;">
@@ -1610,7 +1614,7 @@ function render() {
           <div class="widget-skyline-card">
             <div class="skyline-card-content">
               <h3>DAILY COMMUTE</h3>
-              <p>Negombo Town ➔ Kochchikade ➔ Katana ➔ Seeduwa ➔ School Campus</p>
+              <p>Negombo Town ➔ Kochchikade ➔ Katana ➔ Seeduwa ➔ School</p>
               <div style="display:flex;gap:0.5rem;align-items:center;">
                 <button type="button" class="pill-btn-orange" style="padding:0.5rem 1.1rem;font-size:0.82rem;" data-a="switch-tab" data-tab="routes">
                   Explore Active Run
@@ -1763,7 +1767,7 @@ function render() {
                   <span class="tag ok">06:58 AM · Kochchikade</span>
                   <span class="tag ok">07:10 AM · Katana</span>
                   <span class="tag ok">07:22 AM · Seeduwa</span>
-                  <span class="tag ok">07:35 AM · School Campus</span>
+                  <span class="tag ok">07:25 AM · School</span>
                 </div>
               </div>
             </div>
